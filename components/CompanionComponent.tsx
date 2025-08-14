@@ -6,7 +6,7 @@ import Lottie, { LottieRefCurrentProps } from 'lottie-react';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react'
 import soundwaves from '@/constants/soundwaves.json'
-import { CACHE_ONE_YEAR } from 'next/dist/lib/constants';
+import { addToSessionHistory } from '@/lib/actions/companion.actions';
 
 enum CallStatus {
     INACTIVE = 'INACTIVE',
@@ -31,13 +31,17 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
   }, [isSpeaking, lottieRef])
 
   useEffect(() => {
-    const onCallStart = () => setCallStatus(CallStatus.ACTIVE)
+    const onCallStart = () => setCallStatus(CallStatus.ACTIVE);
 
-    const onCallEnd = () => setCallStatus(CallStatus.FINISHED)
+    const onCallEnd = () => {
+        setCallStatus(CallStatus.FINISHED);
+        addToSessionHistory(companionId)
+    }
+        
 
     const onMessage = (message:Message) => {
         if(message.type === 'transcript' && message.transcriptType === 'final') {
-            const newMessage = { role:message.role, content: message.transcript}
+            const newMessage = { role: message.role, content: message.transcript}
             setmessages((prev) => [newMessage, ...prev])
         }
     }
@@ -144,8 +148,10 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                     if(message.role === 'assistant') {
                         return (
                             <p key={index} className='max-sm:text-sm'>
-                                {name.split(' ')[0].replace('/[.,]/g, ', '')}:
-                                {message.content}
+                                {name
+                                            .split(' ')[0]
+                                            .replace('/[.,]/g, ','')
+                                    }: {message.content}
                             </p>
                         )
                     } else {
