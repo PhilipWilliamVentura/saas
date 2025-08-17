@@ -1,19 +1,23 @@
 export const subjects = [
-  "maths",
-  "language",
-  "science",
-  "history",
-  "coding",
-  "economics",
+  "machine-learning",
+  "deep-learning",
+  "quantitative-finance",
+  "econometrics",
+  "statistics",
+  "mathematics",
+  "trading-strategies",
+  "risk-management",
 ];
 
-export const subjectsColors = {
-  science: "#E5D0FF",
-  maths: "#FFDA6E",
-  language: "#BDE7FF",
-  coding: "#FFC8E4",
-  history: "#FFECC8",
-  economics: "#C8FFDF",
+export const subjectsColors: Record<string, string> = {
+  "machine-learning": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+  "deep-learning": "linear-gradient(135deg, #f7971e 0%, #ffd200 100%)",
+  "quantitative-finance": "linear-gradient(135deg, #43cea2 0%, #185a9d 100%)",
+  "econometrics": "linear-gradient(135deg, #ff6a00 0%, #ee0979 100%)",
+  "statistics": "linear-gradient(135deg, #36d1dc 0%, #5b86e5 100%)",
+  "mathematics": "linear-gradient(135deg, #11998e 0%, #38ef7d 100%)",
+  "trading-strategies": "linear-gradient(135deg, #fc5c7d 0%, #6a82fb 100%)",
+  "risk-management": "linear-gradient(135deg, #00c6ff 0%, #0072ff 100%)",
 };
 
 export const voices = {
