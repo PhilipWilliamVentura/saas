@@ -20,6 +20,11 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
   const [isSpeaking, setisSpeaking] = useState(false)
   const [isMuted, setisMuted] = useState(false)
   const [messages, setmessages] = useState<SavedMessage[]>([])
+  const [infoText, setInfoText] = useState("");
+  const [questionText, setQuestionText] = useState("");
+  const [answer, setAnswer] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const lottieRef = useRef<LottieRefCurrentProps>(null);
 
@@ -94,6 +99,25 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
     vapi.stop()
   }
 
+  const handleRAGSubmit = async () => {
+    setIsLoading(true);
+    try {
+      const res = await fetch('http://localhost:8000/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: infoText, question: questionText }),
+      });
+      const data = await res.json();
+      setAnswer(data.answer);
+      // setImageUrl(data.image_url);
+    } catch (err) {
+      console.error('Error sending request:', err);
+    } finally {
+        setIsLoading(false);
+    }
+  };
+
+
   return (
     <section className='flex flex-col h-[70vh]'>
         <section className='flex gap-8 max-sm:flex-col'>
@@ -163,6 +187,36 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
             </div>
             <div className='transcript-fade'/>
         </section>
+        <section>
+            <form className="w-full space-y-3">
+                <label className="block text-lg font-medium text-gray-700">
+                    Maybe you need our RAG Bot? Enter information that confuse you and a question you have about it.
+                </label>
+                <textarea
+                    value={infoText}
+                    onChange={(e) => setInfoText(e.target.value)}
+                    placeholder="Paste or type the text here..."
+                    rows={10}
+                    className="w-full rounded-2xl border border-gray-300 p-4 text-gray-900 shadow-sm focus:border-black focus:ring-2 focus:ring-black focus:outline-none resize-none"
+                />
+                <textarea
+                    value={questionText}
+                    onChange={(e) => setQuestionText(e.target.value)}
+                    placeholder="Paste or type the question here..."
+                    rows={2}
+                    className="w-full rounded-2xl border border-gray-300 p-4 text-gray-900 shadow-sm focus:border-black focus:ring-2 focus:ring-black focus:outline-none resize-none"
+                />
+                <button
+                    type="button"
+                    onClick={handleRAGSubmit}
+                    disabled={isLoading}
+                    className="w-full bg-black text-white font-semibold py-3 rounded-2xl hover:bg-indigo-900 transition-colors"
+                    >
+                    {isLoading ? 'Generating response...' : 'Ask RAG Bot'}
+                </button>
+            </form>
+        </section>
+        {answer && <p className="mt-4 p-2 border rounded bg-gray-50">{answer}</p>}
     </section>
   )
 }
