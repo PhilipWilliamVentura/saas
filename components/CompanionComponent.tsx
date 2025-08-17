@@ -22,6 +22,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
   const [messages, setmessages] = useState<SavedMessage[]>([])
   const [infoText, setInfoText] = useState("");
   const [questionText, setQuestionText] = useState("");
+  const [diagramText, setdiagramText] = useState("")
   const [answer, setAnswer] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -105,11 +106,11 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
       const res = await fetch('http://localhost:8000/ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: infoText, question: questionText }),
+        body: JSON.stringify({ text: infoText, question: questionText, diagram: diagramText }),
       });
       const data = await res.json();
       setAnswer(data.answer);
-      // setImageUrl(data.image_url);
+      setImageUrl(data.image_url);
     } catch (err) {
       console.error('Error sending request:', err);
     } finally {
@@ -206,6 +207,16 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                     rows={2}
                     className="w-full rounded-2xl border border-gray-300 p-4 text-gray-900 shadow-sm focus:border-black focus:ring-2 focus:ring-black focus:outline-none resize-none"
                 />
+                <label className="block text-lg font-medium text-gray-700">
+                    Need a Diagram to support the RAG bot's answer. Try out our diffuser!
+                </label>
+                <textarea
+                    value={diagramText}
+                    onChange={(e) => setdiagramText(e.target.value)}
+                    placeholder="Paste or type the description of your diagram here..."
+                    rows={5}
+                    className="w-full rounded-2xl border border-gray-300 p-4 text-gray-900 shadow-sm focus:border-black focus:ring-2 focus:ring-black focus:outline-none resize-none"
+                />
                 <button
                     type="button"
                     onClick={handleRAGSubmit}
@@ -217,6 +228,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
             </form>
         </section>
         {answer && <p className="mt-4 p-2 border rounded bg-gray-50">{answer}</p>}
+        {imageUrl && <img src={imageUrl} alt="Diagram" className="mt-4 max-w-sm" />}
     </section>
   )
 }
