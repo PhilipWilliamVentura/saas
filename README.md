@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Quant ML Labs
+
+[Live Demo](https://quantmllabs.vercel.app) | [Python Backend Repo](https://github.com/PhilipWilliamVentura/RAGChatbot-and-Diffusion-model)
+
+Quant ML Labs is an **educational AI platform** that allows users to create their **personal AI companion**. This companion can interact with users in **real-time conversations**, answer questions using advanced **Retrieval-Augmented Generation (RAG)**, and generate **custom visual diagrams** with a **Diffusion model built from scratch**.
+
+The platform is designed for students, professionals, and enthusiasts in **quantitative finance and machine learning**, providing an immersive and interactive way to learn complex concepts.
+
+---
+
+## Features
+
+- **Custom AI Companion:** Build and personalize your own AI assistant that talks to you in real time.
+- **RAG-Powered Q&A:** Ask questions and get answers grounded in your own documents or study material.
+- **Diffusion-Based Visuals:** Generate diagrams or visualizations to support learning, all via AI.
+- **Interactive & Real-Time:** Seamless conversational experience with instant responses.
+
+---
+
+## Technologies Used
+
+- **Frontend:** React, TypeScript, TailwindCSS
+- **Backend:** Python, FastAPI, PyTorch
+- **AI & ML:** VAPI, Custom Diffusion Model built from scratch, RAG with FAISS + Langchain + Gemini API
+- **Database & Auth:** Supabase
+- **Monitoring & Logging:** Sentry
+- **Deployment:** Vercel
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Frontend
+
+Clone the repo and install dependencies:
 
 ```bash
+git clone https://github.com/PhilipWilliamVentura/quant-ml-labs-frontend.git
+cd quant-ml-labs-frontend
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Backend
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+git clone https://github.com/PhilipWilliamVentura/RAGChatbot-and-Diffusion-model.git
+cd RAGChatbot-and-Diffusion-model
+source venv/bin/activate  # if using virtualenv
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Experience the AI companion and explore Quant ML Labs here: https://quantmllabs.vercel.app
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
