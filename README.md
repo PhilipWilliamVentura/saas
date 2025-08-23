@@ -8,16 +8,16 @@ The platform is designed for students, professionals, and enthusiasts in **quant
 
 ---
 
-## Features
+## 🔥 Features
 
 - **Custom AI Companion:** Build and personalize your own AI assistant that talks to you in real time.
 - **RAG-Powered Q&A:** Ask questions and get answers grounded in your own documents or study material.
-- **Diffusion-Based Visuals:** Generate diagrams or visualizations to support learning, all via AI.
+- **Diffusion-Based Visuals:** Generate diagrams or visualizations to support learning, all from scratch.
 - **Interactive & Real-Time:** Seamless conversational experience with instant responses.
 
 ---
 
-## Technologies Used
+## 📌 Technologies Used
 
 - **Frontend:** React, TypeScript, TailwindCSS
 - **Backend:** Python, FastAPI, PyTorch
