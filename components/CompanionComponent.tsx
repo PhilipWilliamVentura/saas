@@ -167,28 +167,42 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                 </button>
             </div>
         </section>
-        <section className='transcript'>
-            <div className='transcript-message'>
-                {messages.map((message, index) =>{
-                    if(message.role === 'assistant') {
-                        return (
-                            <p key={index} className='max-sm:text-sm'>
-                                {name
-                                            .split(' ')[0]
-                                            .replace('/[.,]/g, ','')
-                                    }: {message.content}
-                            </p>
-                        )
-                    } else {
-                        return <p key={index} className='text-primary max-sm:text-sm'>
-                            {userName}: {message.content}
-                        </p>
-                    }
+        <section className="transcript min-h-[200px] max-h-[400px] overflow-y-auto bg-white border border-gray-200 rounded-xl p-4 shadow-sm mt-4">
+            <div className="transcript-message space-y-3">
+                {messages.map((message, index) => {
+                if (message.role === "assistant") {
+                    return (
+                    <p
+                        key={index}
+                        className="text-gray-800 whitespace-normal break-words leading-relaxed"
+                    >
+                        <span className="font-semibold" style={{
+                            backgroundImage: getSubjectColor(subject),
+                            backgroundClip: "text",
+                            WebkitBackgroundClip: "text",
+                            color: "transparent",
+                            WebkitTextFillColor: "transparent",
+                        }}>
+                        {name.split(" ")[0].replace(/[.,]/g, "")}:
+                        </span>{" "}
+                        {message.content}
+                    </p>
+                    );
+                } else {
+                    return (
+                    <p
+                        key={index}
+                        className="text-primary whitespace-normal break-words leading-relaxed"
+                    >
+                        <span className="font-semibold">{userName}:</span>{" "}
+                        {message.content}
+                    </p>
+                    );
+                }
                 })}
             </div>
-            <div className='transcript-fade'/>
-        </section>
-        <section>
+            </section>
+        <section className='py-5'>
             <form className="w-full space-y-3">
                 <label className="block text-lg font-medium text-gray-700">
                     Maybe you need our RAG Bot? Enter information that confuse you and a question you have about it.
